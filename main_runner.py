@@ -52,7 +52,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Audio Transcription and Scam Detection Pipeline")
     parser.add_argument("--input_file", required=True, help="Input an audio (mp3,wav) or video (mp4) file name within the input folder")
     parser.add_argument("--STT_model_path", default='biodatlab/whisper-th-medium-combined', help="Path for the Speech To Text model")
-    parser.add_argument("--Scam_Detect_model_path", default='./trained_scam_model', help="Path for the Scam Detection model (referenced from inside Scam_Detect folder)")
+    parser.add_argument("--Scam_Detect_model_path", default='./trained_scam_model', help="Path for the Scam Detection model (relative to scam_detection.py inside of the Scam_Detect folder)")
 
     args = parser.parse_args()
     main(args)
