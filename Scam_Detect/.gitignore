@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# other
+uv.lock
+pyproject.toml
+.python-version
+test_trainer/
+scam_detection_model/
