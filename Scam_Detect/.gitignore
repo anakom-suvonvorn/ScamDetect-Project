@@ -15,3 +15,7 @@ pyproject.toml
 .python-version
 test_trainer/
 scam_detection_model/
+.env
+dataset/
+archive.zip
+dataset.zip
