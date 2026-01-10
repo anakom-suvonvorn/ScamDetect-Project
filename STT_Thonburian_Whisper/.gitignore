@@ -14,3 +14,17 @@ uv.lock
 pyproject.toml
 .python-version
 temp_directory_for_chunks
+
+# all the wav files n stuff
+audiofiles\ -\ call\ center/left_customer/
+audiofiles\ -\ call\ center/right_call-center/
+audiofiles\ -\ call\ center/right_call-center_trimmed/
+audiofiles\ -\ call\ center/right_call-center_trimmed_and_noised/
+audiofiles_human_from_HandAI/
+ScamVoiceFiles/htdemucs/
+ScamVoiceFiles/real_scam_background_noise/
+ScamVoiceFiles/real_scam_conversation/
+ScamVoiceFiles/real_scam_original/
+trimmed_audiofiles_human_from_HandAI/
+sound_sentence/
+stitched_conversations_not_call-center/
