@@ -60,7 +60,10 @@ def save_results(text, result, score, word_risk, output_path):
     print(word_risk.head(15))
 
     word_risk.columns = ['word', 'risk_score']
-    word_risk_serializable = word_risk.to_dict(orient='records')
+
+    df_export = word_risk.reset_index().rename(columns={'index': 'position'})
+
+    word_risk_serializable = df_export.to_dict(orient='records')
 
     output = {
         "text": text,
