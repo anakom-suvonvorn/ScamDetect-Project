@@ -14,6 +14,7 @@ uv.lock
 pyproject.toml
 .python-version
 temp_directory_for_chunks
+additional_data_2/
 
 # all the wav files n stuff
 audiofiles\ -\ call\ center/left_customer/

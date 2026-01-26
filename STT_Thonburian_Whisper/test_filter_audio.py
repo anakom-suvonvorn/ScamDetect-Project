@@ -80,4 +80,5 @@ def clean_with_demucs(input_path, output_folder): # the best one for now
 for i in range(1,77):
  if i in [48,53]:
     continue
- clean_with_demucs(f"ScamVoiceFiles/scam{i:02d}.wav", "ScamVoiceFiles/")
+#  clean_with_demucs(f"ScamVoiceFiles/scam{i:02d}.wav", "ScamVoiceFiles/")
+ clean_with_demucs(f"additional_data_2/การสนทนา วิชาภาษาไทย.mp3", "additional_data_2/")
