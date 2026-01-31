@@ -5,14 +5,12 @@ import random
 from sklearn.model_selection import train_test_split
 
 # --- CONFIGURATION ---
-INPUT_FILE = "original_data/additional_data_1.csv"       # The file you want to fix
-OUTPUT_FILE = "processed_data/additional_data_1_splitted"
 
 # CHARACTER SETTINGS (Adjust these based on your needs)
 # 1 Thai character is roughly equal to 1 char here.
 # For BERT models: 512 tokens is approx 1500-2000 Thai characters.
-MAX_CHARS = 300     # Maximum size of a chunk (Upper limit of random)
-MIN_CHARS = 100        # Minimum size of a chunk (Lower limit of random)
+MAX_CHARS = 500     # Maximum size of a chunk (Upper limit of random)
+MIN_CHARS = 200        # Minimum size of a chunk (Lower limit of random)
 TARGET_OVERLAP = 0.20  # We aim for ~20% overlap between chunks
 
 def smart_split_text(text):
@@ -71,44 +69,47 @@ def smart_split_text(text):
             
     return chunks
 
-def process_dataset():
-    if not os.path.exists(INPUT_FILE):
-        print(f"❌ Error: {INPUT_FILE} not found.")
-        return
+def process_dataset(input_files, output_files):
+    for input_file, output_file in zip(input_files, output_files):
+        if not os.path.exists(input_file):
+            print(f"❌ Error: {input_file} not found.")
+            continue
 
-    data = pd.read_csv(INPUT_FILE)
+        data = pd.read_csv(input_file)
 
-    train, test = train_test_split(data, test_size=0.2, random_state=42)
+        train, test = train_test_split(data, test_size=0.2, random_state=42)
 
-    for idx, df in enumerate([train, test]):
-        new_rows = []
-    
-        print(f"Processing {len(df)} rows...")
+        for idx, df in enumerate([train, test]):
+            new_rows = []
         
-        for index, row in tqdm(df.iterrows(), total=len(df)):
-            original_text = str(row['text'])
-            try:
-                label = int(row['label'])
-            except:
-                continue
+            print(f"Processing {len(df)} rows...")
             
-            # Handle empty or nan text
-            if not original_text or original_text.lower() == 'nan':
-                continue
+            for index, row in tqdm(df.iterrows(), total=len(df)):
+                original_text = str(row['text'])
+                try:
+                    label = int(row['label'])
+                except:
+                    continue
                 
-            # Apply the smart splitter
-            splitted_texts = smart_split_text(original_text)
-            
-            for fragment in splitted_texts:
-                new_rows.append({
-                    "text": fragment,
-                    "label": label
-                })
+                # Handle empty or nan text
+                if not original_text or original_text.lower() == 'nan':
+                    continue
+                    
+                # Apply the smart splitter
+                splitted_texts = smart_split_text(original_text)
+                
+                for fragment in splitted_texts:
+                    new_rows.append({
+                        "text": fragment,
+                        "label": label
+                    })
 
-        # Save
-        final_df = pd.DataFrame(new_rows)
-        print(f"✅ Done! Expanded {len(df)} rows into {len(final_df)} training samples.")
-        final_df.to_csv(f"{OUTPUT_FILE}_{'train' if idx == 0 else 'test'}.csv", index=False)
+            # Save
+            final_df = pd.DataFrame(new_rows)
+            print(f"✅ Done! Expanded {len(df)} rows into {len(final_df)} training samples.")
+            final_df.to_csv(f"{output_file}_{'train' if idx == 0 else 'test'}.csv", index=False)
 
 if __name__ == "__main__":
-    process_dataset()
+    input_files = ["original_data/additional_data_2.csv"]
+    output_files = ["processing_data/additional_data_2_splitted"]
+    process_dataset(input_files, output_files)

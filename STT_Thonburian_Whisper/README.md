@@ -65,3 +65,30 @@ python main.py --input_file videotest.mp4 --output_file transcripted.srt --model
 
 ```
 ffmpeg -i "videotest.mp4" -y -vf subtitles="transcripted.srt" "videotest_with_subtitles.mp4"
+```
+
+# Output formatting
+
+csv example:
+```
+text,start,end
+อย่าลืมไปดูต่อคลิปด้วยนะ,2.858,4.762
+ที่เราจะไปเที่ยวใน,4.81,6.522
+ส่วนวันปีใหม่นี้ อย่าลืมไปดูนะว่า,6.506,9.306
+จะขึ้นวันไหนอะไรยังไงนะ,9.386,11.002
+เกือบจะถึงแล้วนะครับ อีกแค่,11.85,14.586
+สามสัปดาห์เองเดี๋ยวมันจองตั๋วไม่ทันนะลูก,14.506,17.53
+เอ่อ ก็ เดี๋ยว เอ่อ จน ประเทศไทย ไป ได้,17.674,20.666
+เดี๋ยวไปได้ไว้ไหนได้ตรวจมาเลยบอกแม่ด้วยนะ,21.002,24.378
+เดี๋ยวแม่ยังรอดูนะฮะ เดี๋ยว,25.386,27.674
+เดี๋ยว น้องแม่เอออาจะรอ,27.85,30.33
+น้องขึ้นมานะ โอเค เจอกัน,30.474,32.642
+นะน้อง วันปีใหม่เจอกัน บาย,32.642,34.81
+```
+
+output is a csv file that contains three columns
+- text: the actual transcription of the audio
+- start: the start timestamp for that piece of text
+- end: the end timestamp for that piece of text
+
+output can also be a srt file

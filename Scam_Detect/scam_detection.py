@@ -218,7 +218,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Scam Detection Model Pipeline")
     parser.add_argument("--input_file", required=True, help="Input the transcripted CSV path")
     parser.add_argument("--output_file", default='./test_ouput/output.json', help="Output file path")
-    parser.add_argument("--model_path", default='./all_data_final_no_data_leakage_v2', help="Path to the scam detection model")
+    parser.add_argument("--model_path", default='./all_data_final_no_data_leakage_v3', help="Path to the scam detection model")
 
     args = parser.parse_args()
     main(args)

@@ -33,7 +33,8 @@ python main_runner.py --input_file test.mp3 --STT_model_path <stt_model_path> --
 - `./all_data_final_2000` : trained with transcription of real audio, original dataset, and also Gemini generated conversation. but with <mark>poor file sampling and data input</mark>
 - `./all_data_final_no_file_overlap` : trained with transcription of real audio, original dataset, and also Gemini generated conversation. fixed file sampling and data input but <mark>has data leakage issue</mark> in the splitting of train-test but is otherwise an okay model
 - `./all_data_final_no_data_leakage` : trained with transcription of real audio, original dataset, and also Gemini generated conversation and fixed data leakage issue in `./all_data_final_no_file_overlap`. <mark>has problem predicting normal conversation as scam</mark>
-- `./all_data_final_no_data_leakage_v2` : trained on top of the previous one using additional data, which fixed on it predicting normal conversation as scam (default)
+- `./all_data_final_no_data_leakage_v2` : trained on top of the previous one using additional data, which fixed on it predicting normal conversation as scam
+- `./all_data_final_no_data_leakage_v3` : trained on top of the previous one using even more additional data (default)
 
 # Credits and Citations
 
@@ -56,3 +57,8 @@ python main_runner.py --input_file test.mp3 --STT_model_path <stt_model_path> --
 
 - Gemini generated data from english reference `Scam and Non-Scam Call Conversation Dataset` by `Tee Connie` and `Brendan Hong` : https://www.kaggle.com/datasets/teeconnie/scam-and-non-scam-call-conversation-dataset?select=English_NonScam.txt
 
+- a bunch of independently generated conversation examples from ChatGPT Gemini Claud etc.
+
+- a bunch of random youtube videos I found that contains either a scam conversation or just a normal conversation
+
+- the `ตำรารวย` script that the call center gang in cambodia used to trick victims

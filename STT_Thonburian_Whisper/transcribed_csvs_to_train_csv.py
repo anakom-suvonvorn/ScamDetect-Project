@@ -13,23 +13,33 @@ from sklearn.model_selection import train_test_split
 # INPUT_FOLDER = "ScamTranscribedMediumFiles/"
 # OUTPUT_BASE = "ScamTranscribedMediumFiles/medium_transcribed_no_filter_final"
 
-INPUT_FOLDER = "ScamVoiceFiles/real_scam_conversation_transcribed"
-OUTPUT_BASE = "ScamVoiceFiles/real_scam_conversation_transcribed/medium_filtered_transcribed_final"
+# INPUT_FOLDER = "additional_data_2/normal_phone_transcribed"
+# OUTPUT_BASE = "additional_data_2/normal_phone_data"
+
+INPUT_FOLDER = "additional_data_2/scam_phone_transcribed"
+OUTPUT_BASE = "additional_data_2/scam_phone_data"
 
 # --- NORMAL DATASET ---
 # INPUT_FOLDER = "audiofiles - call center/right_call-center_trimmed_and_noised_transcribed/"
 # OUTPUT_BASE = "audiofiles - call center/right_call-center_trimmed_and_noised_transcribed_final"
 
 # --- SETTINGS ---
-MIN_WINDOW = 5   # Minimum lines (e.g., short exchange)
-MAX_WINDOW = 12  # Maximum lines (e.g., long explanation)
-OVERLAP_RATIO = 0.15 # We aim to overlap roughly 15% of the previous window
+
+# normal
+# MIN_WINDOW = 5   # Minimum lines (e.g., short exchange)
+# MAX_WINDOW = 12  # Maximum lines (e.g., long explanation)
+
+MIN_WINDOW = 3   # Minimum lines (e.g., short exchange)
+MAX_WINDOW = 6  # Maximum lines (e.g., long explanation)
+
+# OVERLAP_RATIO = 0.15 # We aim to overlap roughly 15% of the previous window
+OVERLAP_RATIO = 0.3
 TEST_SIZE = 0.2  # 20% of files go to the Test Set
 
 # --- FILTER LIST (Optional) ---
 # num_list = [24, 28, 56, 39, 69, 15, 51, 40, 29, 71, 61, 1, 67, 50, 5, 73, 64, 47, 59, 75, 19, 7, 41, 22, 74, 25, 13, 20] + [9, 27]
 # num_list = [52, 38, 10, 16, 72, 66, 34, 2, 57, 12, 31, 4, 32, 3]
-num_list = [23, 8, 21, 37, 26, 68, 55, 60, 17, 49, 18, 70, 30, 35, 46]
+# num_list = [23, 8, 21, 37, 26, 68, 55, 60, 17, 49, 18, 70, 30, 35, 46]
 
 
 def process_batch(file_list, desc_text="Processing"):
@@ -92,17 +102,20 @@ def create_variable_window_dataset():
     for f in all_files:
         # Example: Uncomment logic below to filter
         # if f not in [f"scam{num:02d}.csv" for num in num_list]:
-        if f not in [f"scam{num:02d}_conversation.csv" for num in num_list]:
-            continue
+        # if f not in [f"scam{num:02d}_conversation.csv" for num in num_list]:
+        #     continue
         valid_files.append(f)
         
     print(f"📂 Found {len(valid_files)} files to process.")
+    print(valid_files)
+
+    random.shuffle(valid_files)
 
     # 3. Split TRAIN vs TEST (File-level split to prevent leakage)
     train_files, test_files = train_test_split(valid_files, test_size=TEST_SIZE, random_state=42)
     
-    print(f"   - Training on {len(train_files)} files")
-    print(f"   - Testing on {len(test_files)} files")
+    print(f"   - Training on {len(train_files)} file: {train_files}")
+    print(f"   - Testing on {len(test_files)} files: {test_files}")
 
     # 4. Process Both Sets
     train_df = process_batch(train_files, desc_text="Generating Train Data")
